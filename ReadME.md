@@ -1,8 +1,10 @@
 # Password Strength Checker
 
 This is a simple password strength checker written in Go. It uses common criteria such as length, capital letters, numbers, etc.
+Uses HaveIBenPwned API to check if the password has been compromised, by sending the first characters of the password hash and checking locally for matches so no passwords of yours get leaked.
 
-Run it and type in your password. You will get an evaluation based on said criteria.
+Run it and type in your password. You will get an evaluation based on said criteria, including feedback on how you could improve.
+If your password has been compromised, it will let you know at the end.
 
 ## Installation
 ```bash
