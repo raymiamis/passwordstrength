@@ -5,11 +5,14 @@ import (
 	"unicode"
 )
 
-func checkPasswordStrength(password string) string {
+func checkPasswordStrength(password string) (string, []string) {
 	var lengthOk, upper, lower, number, special bool
+	var feedback []string
 
 	if len(password) >= 12 {
 		lengthOk = true
+	} else {
+		feedback = append(feedback, "Password shorter than 12 characters.")
 	}
 
 	for _, char := range password {
@@ -23,6 +26,19 @@ func checkPasswordStrength(password string) string {
 		case unicode.IsPunct(char) || unicode.IsSymbol(char):
 			special = true
 		}
+	}
+
+	if !upper {
+		feedback = append(feedback, "Capital letters missing.")
+	}
+	if !lower {
+		feedback = append(feedback, "Lowercase letters missing.")
+	}
+	if !number {
+		feedback = append(feedback, "Numbers missing.")
+	}
+	if !special {
+		feedback = append(feedback, "Special characters missing.")
 	}
 
 	score := 0
@@ -42,14 +58,17 @@ func checkPasswordStrength(password string) string {
 		score++
 	}
 
+	var strength string
 	switch score {
 	case 5:
-		return "Strong"
+		strength = "Strong"
 	case 3, 4:
-		return "Moderate"
+		strength = "Moderate"
 	default:
-		return "Weak"
+		strength = "Weak"
 	}
+
+	return strength, feedback
 }
 
 func main() {
@@ -60,6 +79,13 @@ func main() {
 		fmt.Println("Error while reading password: ", err)
 	}
 
-	strength := checkPasswordStrength(password)
+	strength, feedback := checkPasswordStrength(password)
 	fmt.Println("Password Strength:", strength)
+
+	if len(feedback) > 0 {
+		fmt.Println("Feedback:")
+		for _, msg := range feedback {
+			fmt.Println(msg)
+		}
+	}
 }
