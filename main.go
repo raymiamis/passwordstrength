@@ -1,9 +1,66 @@
 package main
 
 import (
+	"crypto/sha1"
+	"encoding/hex"
 	"fmt"
+	"io"
+	"io/ioutil"
+	"net/http"
+	"strings"
 	"unicode"
 )
+
+func isPwned(password string) (bool, int, error) {
+
+	hasher := sha1.New()
+	hasher.Write([]byte(password))
+	hash := strings.ToUpper(hex.EncodeToString(hasher.Sum(nil)))
+
+	prefix := hash[:5]
+	suffix := hash[5:]
+
+	url := "https://api.pwnedpasswords.com/range/" + prefix
+	resp, err := http.Get(url)
+	if err != nil {
+		return false, 0, err
+	}
+	defer func(Body io.ReadCloser) {
+		err := Body.Close()
+		if err != nil {
+
+		}
+	}(resp.Body)
+
+	if resp.StatusCode != http.StatusOK {
+		return false, 0, fmt.Errorf("API-Error: %v", resp.Status)
+	}
+
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return false, 0, err
+	}
+
+	lines := strings.Split(string(body), "\n")
+	for _, line := range lines {
+		parts := strings.Split(line, ":")
+		if len(parts) != 2 {
+			continue
+		}
+		if strings.TrimSpace(parts[0]) == suffix {
+
+			count := strings.TrimSpace(parts[1])
+			var n int
+			_, err := fmt.Sscanf(count, "%d", &n)
+			if err != nil {
+				return false, 0, err
+			}
+			return true, n, nil
+		}
+	}
+
+	return false, 0, nil
+}
 
 func checkPasswordStrength(password string) (string, []string) {
 	var lengthOk, upper, lower, number, special bool
@@ -87,5 +144,14 @@ func main() {
 		for _, msg := range feedback {
 			fmt.Println(msg)
 		}
+	}
+
+	pwned, count, err := isPwned(password)
+	if err != nil {
+		fmt.Println("Error while checking pwned status:", err)
+	} else if pwned {
+		fmt.Printf("Warning! This password has been compromised %d times (HaveIBeenPwned).\n", count)
+	} else {
+		fmt.Println("Nice! This password hasn't been found in any leaks (HaveIBeenPwned).")
 	}
 }
