@@ -9,7 +9,7 @@ If your password has been compromised, it will let you know at the end.
 ## Installation on Linux-based systems
 ```bash
 git clone https://github.com/raymiamis/passwordstrength.git
-cd password-checker
+cd passwordstrength
 ./install.sh
 ```
 
