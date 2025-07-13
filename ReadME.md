@@ -6,7 +6,14 @@ Uses HaveIBenPwned API to check if the password has been compromised, by sending
 Run it and type in your password. You will get an evaluation based on said criteria, including feedback on how you could improve.
 If your password has been compromised, it will let you know at the end.
 
-## Installation
+## Installation on Linux-based systems
 ```bash
-go install https://github.com/raymiamis/passwordstrength
+git clone https://github.com/raymiamis/passwordstrength.git
+cd password-checker
+./install.sh
+```
+
+## Usage
+```
+passwordstrength
 ```

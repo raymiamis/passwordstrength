@@ -150,8 +150,8 @@ func main() {
 	if err != nil {
 		fmt.Println("Error while checking pwned status:", err)
 	} else if pwned {
-		fmt.Printf("Warning! This password has been compromised %d times (HaveIBeenPwned).\n", count)
+		fmt.Printf("Warning! This password has been compromised %d times (source: HaveIBeenPwned).\n", count)
 	} else {
-		fmt.Println("Nice! This password hasn't been found in any leaks (HaveIBeenPwned).")
+		fmt.Println("Nice! This password hasn't been found in any leaks (source: HaveIBeenPwned).")
 	}
 }
