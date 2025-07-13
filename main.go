@@ -5,7 +5,6 @@ import (
 	"encoding/hex"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"strings"
 	"unicode"
@@ -36,7 +35,7 @@ func isPwned(password string) (bool, int, error) {
 		return false, 0, fmt.Errorf("API-Error: %v", resp.Status)
 	}
 
-	body, err := ioutil.ReadAll(resp.Body)
+	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return false, 0, err
 	}
@@ -130,7 +129,13 @@ func checkPasswordStrength(password string) (string, []string) {
 
 func main() {
 	var password string
-	fmt.Print("Enter password to check strength: ")
+	fmt.Println(`
+ ▄▄▄· ▄▄▄· .▄▄ · .▄▄ · ▄▄▌ ▐ ▄▌      ▄▄▄  ·▄▄▄▄  .▄▄ · ▄▄▄▄▄▄▄▄  ▄▄▄ . ▐ ▄  ▄▄ • ▄▄▄▄▄ ▄ .▄
+▐█ ▄█▐█ ▀█ ▐█ ▀. ▐█ ▀. ██· █▌▐█▪     ▀▄ █·██▪ ██ ▐█ ▀. •██  ▀▄ █·▀▄.▀·•█▌▐█▐█ ▀ ▪•██  ██▪▐█
+ ██▀·▄█▀▀█ ▄▀▀▀█▄▄▀▀▀█▄██▪▐█▐▐▌ ▄█▀▄ ▐▀▀▄ ▐█· ▐█▌▄▀▀▀█▄ ▐█.▪▐▀▀▄ ▐▀▀▪▄▐█▐▐▌▄█ ▀█▄ ▐█.▪██▀▐█
+▐█▪·•▐█ ▪▐▌▐█▄▪▐█▐█▄▪▐█▐█▌██▐█▌▐█▌.▐▌▐█•█▌██. ██ ▐█▄▪▐█ ▐█▌·▐█•█▌▐█▄▄▌██▐█▌▐█▄▪▐█ ▐█▌·██▌▐▀
+.▀    ▀  ▀  ▀▀▀▀  ▀▀▀▀  ▀▀▀▀ ▀▪ ▀█▄▀▪.▀  ▀▀▀▀▀▀•  ▀▀▀▀  ▀▀▀ .▀  ▀ ▀▀▀ ▀▀ █▪·▀▀▀▀  ▀▀▀ ▀▀▀ ·`)
+	fmt.Print("\nEnter password to check strength: ")
 	_, err := fmt.Scanln(&password)
 	if err != nil {
 		fmt.Println("Error while reading password: ", err)

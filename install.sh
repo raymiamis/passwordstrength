@@ -12,6 +12,7 @@ NC='\033[0m'
 echo "Checking Go-Installation..."
 if ! command -v go &> /dev/null; then
     echo -e "${RED}Go is not installed. Please install Go and try again.${NC}"
+    echo "Check https://go.dev for Go installation guide"
     exit 1
 fi
 
