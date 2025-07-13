@@ -145,12 +145,14 @@ func main() {
 	fmt.Println("Password Strength:", strength)
 
 	if len(feedback) > 0 {
+		fmt.Println("------------------------------------------------------------------------------------")
 		fmt.Println("Feedback:")
 		for _, msg := range feedback {
 			fmt.Println(msg)
 		}
 	}
 
+	fmt.Println("------------------------------------------------------------------------------------")
 	pwned, count, err := isPwned(password)
 	if err != nil {
 		fmt.Println("Error while checking pwned status:", err)
