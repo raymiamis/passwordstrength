@@ -17,3 +17,4 @@ cd passwordstrength
 ```
 passwordstrength
 ```
+And then fill out your password you want to check. You will then get our evaluation.
