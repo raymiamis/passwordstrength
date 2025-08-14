@@ -7,6 +7,7 @@ Run it and type in your password. You will get an evaluation based on said crite
 If your password has been compromised, it will let you know at the end.
 
 [Installation](#installation-on-linux-based-systems)
+[Usage](#usage)
 
 ## Installation on Linux-based systems
 ```bash
