@@ -6,8 +6,9 @@ Uses HaveIBenPwned API to check if the password has been compromised, by sending
 Run it and type in your password. You will get an evaluation based on said criteria, including feedback on how you could improve.
 If your password has been compromised, it will let you know at the end.
 
-[Installation](#installation-on-linux-based-systems)
-[Usage](#usage)
+> [Installation](#installation-on-linux-based-systems)
+>
+> [Usage](#usage)
 
 ## Installation on Linux-based systems
 ```bash
