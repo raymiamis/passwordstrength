@@ -13,6 +13,11 @@ cd passwordstrength
 ./install.sh
 ```
 
+## Installation on Windows or Mac
+(Will require Go as a dependency)
+```
+go install https://github.com/raymiamis/passwordstrength.git
+```
 ## Usage
 ```
 passwordstrength
