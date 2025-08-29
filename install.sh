@@ -5,13 +5,9 @@ set -e
 BINARY_NAME="passwordstrength"
 INSTALL_PATH="/usr/local/bin"
 
-GREEN='\033[0;32m'
-RED='\033[0;31m'
-NC='\033[0m'
-
 echo "Checking Go-Installation..."
 if ! command -v go &> /dev/null; then
-    echo -e "${RED}Go is not installed. Please install Go and try again.${NC}"
+    echo -e "\e[31mGo is not installed.\e[0m Please install Go and try again."
     echo "Check https://go.dev for Go installation guide"
     exit 1
 fi
@@ -22,7 +18,7 @@ go build -o "$BINARY_NAME"
 echo "Installing to $INSTALL_PATH (sudo required)..."
 sudo cp "$BINARY_NAME" "$INSTALL_PATH"
 
-echo -e "${GREEN}Installation complete!${NC}"
+echo -e "\e[32mInstallation complete!\e[0m"
 echo ""
 echo "Use the password strength checker wherever you want with:"
-echo -e "  ${GREEN}$BINARY_NAME${NC}"
+echo -e "  \e[36m$BINARY_NAME\e[0m"
